@@ -1,0 +1,95 @@
+  User
+    - username
+    - password
+    - role (TEAM_ADMIN, SOCIETY_ADMIN)
+    - team: Team (optional, for TEAM_ADMIN role)
+    
+  Society
+     - name
+     - description
+     - teams: List<Team>
+     - admins: List<User> (with SOCIETY_ADMIN role)
+
+  Team
+    - name
+    - teamCaptain: Member
+    - description
+    - totalPoints
+    - members: List<Member>
+    - subTeams: List<SubTeam>
+    - society: Society
+    - events: List<Event>
+    - admins: List<User> (with TEAM_ADMIN role)
+
+  Event
+    - id
+    - name
+    - type (can have INDIVIDUAL, TEAM)
+    - category: Category
+    - from: date
+    - to: date
+    - winners: List<Participant>
+
+  Category
+    - id
+    - name
+    - fromAge
+    - toAge
+    - genders: List<String> (can be MALE, FEMALE, BOTH)
+
+  EventWinner
+    - id
+    - event: Event
+    - participant: Participant
+    - prize (can be GOLD, SILVER, BRONZE)
+
+  EventTeam
+    - id
+    - name
+    - eventTeamCaptain: Member
+    - members: List<Member>
+    - team: Team
+    - matches: List<Match>
+    - event: Event
+
+  Member
+    - name
+    - email
+    - id
+    - dob: date
+    - gender
+    - apartment
+    - roles: List<String> (can be SUPER_ADMIN, TEAM_ADMIN, SOCIETY_ADMIN, PARTICIPANT, WATCHER)
+    - team: Team
+    - eventTeams: List<EventTeam>
+    - events: List<Event>
+    - matches: List<Match>
+
+
+
+  Match
+    - round
+    - set: List<Set>
+    - date
+    - winner: Participant
+    - loser: Participant
+    - event: Event
+    - participants: List<Participant> (exactly 2)
+
+  Set
+    - setId
+    - setNo
+    - direction
+    - winner: Participant
+    - winnerScore
+    - loser: Participant
+    - loserScore
+    - date
+    - match: Match
+    - status: String (FINISHED, DRAW)
+
+
+  Participant (abstract)
+    - member: Member (optional)
+    - team: Team (optional)
+    - subTeam: SubTeam (optional)
